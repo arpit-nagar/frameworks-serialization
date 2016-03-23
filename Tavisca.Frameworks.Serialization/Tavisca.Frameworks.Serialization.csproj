@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{897B0061-FEE0-4677-BFC9-FF48B6EC8586}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Tavisca.Frameworks.Serialization</RootNamespace>
+    <AssemblyName>Tavisca.Frameworks.Serialization</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="LZ4, Version=1.0.9.93, Culture=neutral, PublicKeyToken=62e1b5ec1eec9bdd, processorArchitecture=MSIL">
+      <HintPath>..\packages\lz4net.1.0.9.93\lib\net4-client\LZ4.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="protobuf-net, Version=2.0.0.668, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
+      <HintPath>..\packages\protobuf-net.2.0.0.668\lib\net40\protobuf-net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Binary\BinarySerializationFacade.cs" />
+    <Compile Include="Binary\DataContractJsonSerializerFacade.cs" />
+    <Compile Include="Binary\DataContractSerializerFacade.cs" />
+    <Compile Include="Binary\JsonNetSerializerFacade.cs" />
+    <Compile Include="Binary\ProtoBufFacade.cs" />
+    <Compile Include="Binary\StringByteConverter.cs" />
+    <Compile Include="Binary\XmlSerializerFacade.cs" />
+    <Compile Include="Compression\CompressionProvider.cs" />
+    <Compile Include="Compression\Enumerations.cs" />
+    <Compile Include="ConfigDrivenSerializationFacade.cs" />
+    <Compile Include="Configuration\ApplicationSerializationSection.cs" />
+    <Compile Include="Configuration\AssemblyElement.cs" />
+    <Compile Include="Configuration\AssemblyElementCollection.cs" />
+    <Compile Include="Configuration\AssemblyElementConfiguration.cs" />
+    <Compile Include="Configuration\Enumeration.cs" />
+    <Compile Include="Configuration\Helpers.cs" />
+    <Compile Include="Configuration\IApplicationSerializationConfig.cs" />
+    <Compile Include="Configuration\IAssemblyElement.cs" />
+    <Compile Include="Configuration\ITypeElement.cs" />
+    <Compile Include="Configuration\SerializationConfig.cs" />
+    <Compile Include="Configuration\SerializationConfigurationManager.cs" />
+    <Compile Include="Configuration\TypeElement.cs" />
+    <Compile Include="Configuration\TypeElementCollection.cs" />
+    <Compile Include="Configuration\TypeElementConfiguration.cs" />
+    <Compile Include="Exceptions\SerializationConfigurationException.cs" />
+    <Compile Include="Exceptions\SerializationException.cs" />
+    <Compile Include="ISerializationFacade.cs" />
+    <Compile Include="Resources\SerializationResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SerializationResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SerializationFactory.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Specialized\IInfluxDbTable.cs" />
+    <Compile Include="Specialized\InfluxDbTable.cs" />
+    <Compile Include="Specialized\InfluxDbTableRow.cs" />
+    <Compile Include="Specialized\InfluxDbTableRowItem.cs" />
+    <Compile Include="Specialized\InfluxDbTableRowItemType.cs" />
+    <Compile Include="Specialized\ObjectToInfluxSchemaSerializer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\SerializationResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SerializationResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Tavisca.Frameworks.Serialization.nuspec" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

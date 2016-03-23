@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tavisca.Frameworks.Serialization", "Tavisca.Frameworks.Serialization\Tavisca.Frameworks.Serialization.csproj", "{897B0061-FEE0-4677-BFC9-FF48B6EC8586}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tavisca.Frameworks.Serialization.Tests", "Test\Tavisca.Frameworks.Serialization.Tests\Tavisca.Frameworks.Serialization.Tests.csproj", "{E204E209-87CC-4B1E-A2F2-114E03A27A1A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{F3044334-16ED-403C-A54F-61620B8396BF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{349E32EE-7DA6-4B81-9BEB-6316B0DBF842}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tavisca.Frameworks.Serialization.Tests.Data", "Test\Tavisca.Frameworks.Serialization.Tests.Data\Tavisca.Frameworks.Serialization.Tests.Data.csproj", "{DCD9E51F-6836-4579-853F-568EF0EAC6DF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{897B0061-FEE0-4677-BFC9-FF48B6EC8586}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{897B0061-FEE0-4677-BFC9-FF48B6EC8586}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{897B0061-FEE0-4677-BFC9-FF48B6EC8586}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{897B0061-FEE0-4677-BFC9-FF48B6EC8586}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E204E209-87CC-4B1E-A2F2-114E03A27A1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E204E209-87CC-4B1E-A2F2-114E03A27A1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E204E209-87CC-4B1E-A2F2-114E03A27A1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E204E209-87CC-4B1E-A2F2-114E03A27A1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCD9E51F-6836-4579-853F-568EF0EAC6DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCD9E51F-6836-4579-853F-568EF0EAC6DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCD9E51F-6836-4579-853F-568EF0EAC6DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCD9E51F-6836-4579-853F-568EF0EAC6DF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{897B0061-FEE0-4677-BFC9-FF48B6EC8586} = {349E32EE-7DA6-4B81-9BEB-6316B0DBF842}
+		{E204E209-87CC-4B1E-A2F2-114E03A27A1A} = {F3044334-16ED-403C-A54F-61620B8396BF}
+		{DCD9E51F-6836-4579-853F-568EF0EAC6DF} = {F3044334-16ED-403C-A54F-61620B8396BF}
+	EndGlobalSection
+EndGlobal
