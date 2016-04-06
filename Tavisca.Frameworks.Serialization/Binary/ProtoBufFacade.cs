@@ -393,7 +393,7 @@ namespace Tavisca.Frameworks.Serialization.Binary
 
         #region Serialization
 
-        public byte[] Serialize(object obj)
+        public byte[] Serialize(object obj, object serializationSetting = null)
         {
             if (obj == null)
                 return null;
@@ -410,7 +410,7 @@ namespace Tavisca.Frameworks.Serialization.Binary
             }
         }
 
-        public T Deserialize<T>(byte[] data)
+        public T Deserialize<T>(byte[] data, object deserializationSetting = null)
         {
             if (data == null)
                 return default(T);

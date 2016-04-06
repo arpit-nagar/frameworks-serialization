@@ -97,6 +97,15 @@ namespace Tavisca.Frameworks.Serialization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The serialization setting type is invalid for {0} serializer. Expected type is {1}..
+        /// </summary>
+        internal static string InvalidSerializationSettingException {
+            get {
+                return ResourceManager.GetString("InvalidSerializationSettingException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Deep Cloning.
         /// </summary>
         internal static string Operation_DeepClone {

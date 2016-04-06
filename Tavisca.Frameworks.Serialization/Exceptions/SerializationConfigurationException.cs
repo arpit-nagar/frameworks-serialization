@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Tavisca.Frameworks.Serialization.Exceptions
 {
     [Serializable]
-    public class SerializationConfigurationException : Exception
+    public class SerializationConfigurationException : SerializationException
     {
         public SerializationConfigurationException() { }
 

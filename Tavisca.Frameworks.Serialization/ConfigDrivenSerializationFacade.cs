@@ -45,7 +45,7 @@ namespace Tavisca.Frameworks.Serialization
 
         #region ISerializationFacade Members
 
-        public byte[] Serialize(object obj)
+        public byte[] Serialize(object obj, object serializationSetting = null)
         {
             if (obj == null)
                 throw new SerializationException(string.Format(SerializationResources.Target_Object_Null,
@@ -60,7 +60,7 @@ namespace Tavisca.Frameworks.Serialization
 
                 serializer = GetSerializerByObject(objType);
 
-                var serializedData = serializer.Serialize(obj);
+                var serializedData = serializer.Serialize(obj, serializationSetting);
 
                 var compressionOption = GetCompressionOption(objType);
 
@@ -74,7 +74,7 @@ namespace Tavisca.Frameworks.Serialization
             }
         }
 
-        public T Deserialize<T>(byte[] data)
+        public T Deserialize<T>(byte[] data, object deserializationSetting = null)
         {
             if (data == null)
                 return default(T);
@@ -90,7 +90,7 @@ namespace Tavisca.Frameworks.Serialization
 
                 serializer = GetSerializerByObject(objType);
 
-                var obj = serializer.Deserialize<T>(decompressedData);
+                var obj = serializer.Deserialize<T>(decompressedData, deserializationSetting);
 
                 return obj;
             }

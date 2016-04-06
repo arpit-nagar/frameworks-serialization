@@ -11,8 +11,8 @@ namespace Tavisca.Frameworks.Serialization
     /// </summary>
     public interface ISerializationFacade
     {
-        byte[] Serialize(object obj);
-        T Deserialize<T>(byte[] data);
+        byte[] Serialize(object obj, object serializationSetting = null);
+        T Deserialize<T>(byte[] data, object deserializationSetting = null);
         T DeepClone<T>(T obj);
     }
 }
