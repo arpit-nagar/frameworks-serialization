@@ -129,6 +129,9 @@
   <data name="IInfluxDbData_Tables_Invalid" xml:space="preserve">
     <value>The tables returned by the target object had some invalid values. Following is the list of validation errors:</value>
   </data>
+  <data name="InvalidSerializationSettingException" xml:space="preserve">
+    <value>The serialization setting type is invalid for {0} serializer. Expected type is {1}.</value>
+  </data>
   <data name="Operation_DeepClone" xml:space="preserve">
     <value>Deep Cloning</value>
   </data>

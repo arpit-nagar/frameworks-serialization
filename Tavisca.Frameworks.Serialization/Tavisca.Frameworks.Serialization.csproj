@@ -80,6 +80,7 @@
     <Compile Include="Configuration\TypeElementConfiguration.cs" />
     <Compile Include="Exceptions\SerializationConfigurationException.cs" />
     <Compile Include="Exceptions\SerializationException.cs" />
+    <Compile Include="Exceptions\SerializationSettingException.cs" />
     <Compile Include="ISerializationFacade.cs" />
     <Compile Include="Resources\SerializationResources.Designer.cs">
       <AutoGen>True</AutoGen>
