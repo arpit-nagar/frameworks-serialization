@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,8 +11,22 @@ namespace Tavisca.Frameworks.Serialization.Configuration
     {
         public static bool MatchTypeName(this string typeName, Type type)
         {
-            return FormatTypeName(type.FullName).Equals(FormatTypeName(typeName),
+            return FormatTypeName(GetTargetedType(type).FullName.Split(',')[0]).Equals(FormatTypeName(typeName),
                                                                      StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        private static Type GetTargetedType(Type type)
+        {
+            if (typeof(ICollection).IsAssignableFrom(type))
+            {
+                if (type.IsGenericType)
+                    return type.GetGenericArguments().First();
+
+                if (type.IsArray)
+                    return type.GetElementType();
+            }
+
+            return type;
         }
 
         private static string FormatTypeName(string typeName)
