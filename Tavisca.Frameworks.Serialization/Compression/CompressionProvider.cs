@@ -1,18 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 using LZ4;
-using Tavisca.Frameworks.Serialization.Resources;
+using Microsoft.IO;
 
 namespace Tavisca.Frameworks.Serialization.Compression
 {
     internal sealed class CompressionProvider
     {
+        private static readonly RecyclableMemoryStreamManager StreamManager = new RecyclableMemoryStreamManager();
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")]
         public byte[] Compress(byte[] data, CompressionTypeOptions compressionType)
         {
@@ -28,21 +26,21 @@ namespace Tavisca.Frameworks.Serialization.Compression
                 if (compressionType == CompressionTypeOptions.Lz4)
                     return CompressWithLz4(data);
 
-                using (var dataStream = new MemoryStream(data))
+                using (var outputStream = StreamManager.GetStream())
                 {
-                    var outputStream = new MemoryStream();
+                    var stream = new LeakyStream(outputStream);
                     // Create the compression stream
-                    using (var
-                               compressionStream = CreateCompressionStream(compressionType, outputStream,
-                                                                           CompressionMode.Compress))
+                    using (
+                        var compressionStream = CreateCompressionStream(compressionType, stream,
+                            CompressionMode.Compress))
                     {
-                        CopyTo(dataStream, compressionStream);
-
+                        compressionStream.Write(data, 0, data.Length);
                         compressionStream.Close();
-
-                        return outputStream.ToArray();
+                        var result = outputStream.ToArray();
+                        return result;
                     }
                 }
+
             }
             catch (Exception ex)
             {
@@ -64,7 +62,7 @@ namespace Tavisca.Frameworks.Serialization.Compression
                     return DecompressWithLz4(data);
 
                 // create an resultant data stream
-                var dataStream = new MemoryStream(data);
+                var dataStream = StreamManager.GetStream("DeCompression", data, 0, data.Length);
 
                 // Create the compression stream
                 using (var compressionStream = CreateCompressionStream(compressionType, dataStream,
@@ -92,23 +90,11 @@ namespace Tavisca.Frameworks.Serialization.Compression
             }
         }
 
-        private static void CopyTo(Stream src, Stream dest)
-        {
-            var bytes = new byte[4096];
-
-            int cnt;
-
-            while ((cnt = src.Read(bytes, 0, bytes.Length)) != 0)
-            {
-                dest.Write(bytes, 0, cnt);
-            }
-        }
-
         private byte[] ReadAllBytesFromStream(Stream stream)
         {
             // Use this method is used to read all bytes from a stream.
             const int bufferSize = 1;
-            var outStream = new MemoryStream();
+            var outStream = StreamManager.GetStream();
             var buffer = new byte[bufferSize];
             while (true)
             {
@@ -125,7 +111,7 @@ namespace Tavisca.Frameworks.Serialization.Compression
             outStream.Read(result, 0, (int)length);
             return result;
         }
-
+        
         private byte[] CompressWithLz4(byte[] data)
         {
             return LZ4Codec.WrapHC(data, 0, data.Length);

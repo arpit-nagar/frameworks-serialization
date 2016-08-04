@@ -35,6 +35,10 @@
       <HintPath>..\packages\lz4net.1.0.9.93\lib\net4-client\LZ4.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IO.RecyclableMemoryStream.1.1.0.0\lib\net45\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -63,6 +67,7 @@
     <Compile Include="Binary\XmlSerializerFacade.cs" />
     <Compile Include="Compression\CompressionProvider.cs" />
     <Compile Include="Compression\Enumerations.cs" />
+    <Compile Include="Compression\LeakyStream.cs" />
     <Compile Include="ConfigDrivenSerializationFacade.cs" />
     <Compile Include="Configuration\ApplicationSerializationSection.cs" />
     <Compile Include="Configuration\AssemblyElement.cs" />

@@ -6,11 +6,14 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.IO;
 
 namespace Tavisca.Frameworks.Serialization.Binary
 {
     public sealed class DataContractSerializerFacade : ISerializationFacade
     {
+        private static readonly RecyclableMemoryStreamManager StreamManager = new RecyclableMemoryStreamManager();
+
         public byte[] Serialize(object obj, object serializationSetting = null)
         {
             if (obj == null)
@@ -19,7 +22,7 @@ namespace Tavisca.Frameworks.Serialization.Binary
             var type = obj.GetType();
 
             var serializer = GetDataContractSerializer(type);
-            using (var memoryStream = new MemoryStream())
+            using (var memoryStream = StreamManager.GetStream())
             {
                 serializer.WriteObject(memoryStream, obj);
 
@@ -38,7 +41,7 @@ namespace Tavisca.Frameworks.Serialization.Binary
 
             var type = typeof(T);
 
-            using (var memoryStream = new MemoryStream(data))
+            using (var memoryStream = StreamManager.GetStream("Deserialization.DataContractSerializerFacade",data,0,data.Length))
             {
                 var dcs = GetDataContractSerializer(type);
 

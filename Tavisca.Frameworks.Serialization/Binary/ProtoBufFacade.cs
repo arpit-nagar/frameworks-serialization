@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.IO;
 using ProtoBuf;
 using ProtoBuf.Meta;
 using Tavisca.Frameworks.Serialization.Configuration;
@@ -17,6 +18,8 @@ namespace Tavisca.Frameworks.Serialization.Binary
     public sealed class ProtoBufFacade : ISerializationFacade, IDisposable
     {
         #region Fields
+
+        private static readonly RecyclableMemoryStreamManager StreamManager = new RecyclableMemoryStreamManager();
 
         private readonly IApplicationSerializationConfiguration _configuration;
 
@@ -400,7 +403,7 @@ namespace Tavisca.Frameworks.Serialization.Binary
 
             var model = EnsureConfigured(GetTargetedType(obj.GetType()));
 
-            using (var memStream = new MemoryStream())
+            using (var memStream = StreamManager.GetStream())
             {
                 model.Serialize(memStream, obj);
 
@@ -417,7 +420,7 @@ namespace Tavisca.Frameworks.Serialization.Binary
 
             var model = EnsureConfigured<T>();
 
-            using (var memStream = new MemoryStream(data))
+            using (var memStream = StreamManager.GetStream("Deserialization.ProtoBufFacade", data, 0, data.Length))
             {
                 return (T)model.Deserialize(memStream, null, typeof(T));
             }

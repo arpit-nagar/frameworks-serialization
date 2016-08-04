@@ -5,6 +5,7 @@ using Tavisca.Frameworks.Serialization.Tests.Data;
 using System.Runtime.Serialization.Json;
 using System.IO;
 using System.Reflection;
+using Microsoft.IO;
 
 
 namespace Tavisca.Frameworks.Serialization.Tests
@@ -12,6 +13,8 @@ namespace Tavisca.Frameworks.Serialization.Tests
     [TestClass]
     public class DataContractJsonSerializerTest
     {
+        private static readonly RecyclableMemoryStreamManager StreamManager = new RecyclableMemoryStreamManager();
+
         [TestMethod]
         public void SerializeTest()
         {
@@ -34,7 +37,7 @@ namespace Tavisca.Frameworks.Serialization.Tests
             var serializer = new DataContractJsonSerializer(typeof(FlightItinerary));
 
             var expected = FlightItineraryObject.GetFlightItineraryObject();
-            var memStream = new MemoryStream();
+            var memStream = StreamManager.GetStream();
             serializer.WriteObject(memStream, expected);
             var serializedData = memStream.ToArray();
 

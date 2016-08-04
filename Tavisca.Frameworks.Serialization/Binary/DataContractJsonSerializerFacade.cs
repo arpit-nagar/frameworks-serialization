@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Runtime.Serialization.Json;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+using Microsoft.IO;
 
 namespace Tavisca.Frameworks.Serialization.Binary
 {
     public sealed class DataContractJsonSerializerFacade : ISerializationFacade
     {
+        private static readonly RecyclableMemoryStreamManager StreamManager = new RecyclableMemoryStreamManager();
+
         public byte[] Serialize(object obj, object serializationSetting = null)
         {
             if (obj == null)
@@ -19,7 +17,7 @@ namespace Tavisca.Frameworks.Serialization.Binary
 
             var ser = GetJsonSerializer(obj.GetType());
 
-            using (var ms = new MemoryStream())
+            using (var ms = StreamManager.GetStream())
             {
                 ser.WriteObject(ms, obj);
 
@@ -36,7 +34,7 @@ namespace Tavisca.Frameworks.Serialization.Binary
 
             var ser = GetJsonSerializer(typeof(T));
 
-            using (var ms = new MemoryStream(data))
+            using (var ms = StreamManager.GetStream("Deserialization.DataContractJsonSerializer", data, 0, data.Length))
             {
                 var retVal = ser.ReadObject(ms);
 

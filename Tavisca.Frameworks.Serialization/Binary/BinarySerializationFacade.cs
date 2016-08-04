@@ -6,11 +6,14 @@ using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.IO;
 
 namespace Tavisca.Frameworks.Serialization.Binary
 {
     public sealed class BinarySerializationFacade : ISerializationFacade
     {
+        private static readonly RecyclableMemoryStreamManager StreamManager = new RecyclableMemoryStreamManager();
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")]
         public byte[] Serialize(object obj, object serializationSetting = null)
         {
@@ -18,7 +21,7 @@ namespace Tavisca.Frameworks.Serialization.Binary
                 return null;
 
             byte[] buffer;
-            using (var stream = new MemoryStream())
+            using (var stream = StreamManager.GetStream())
             {
                 //Creating binary formatter to serialize object.
                 var formatter = new BinaryFormatter();
@@ -37,8 +40,8 @@ namespace Tavisca.Frameworks.Serialization.Binary
                 return default(T);
 
             object serializedObject;
-
-            using (var stream = new MemoryStream(data.ToArray()))
+            var bytes = data.ToArray();
+            using (var stream = StreamManager.GetStream("DeSerialization.Binary", bytes, 0, bytes.Length))
             {
                 //Creating binary formatter to De-Serialize string.
                 var formatter = new BinaryFormatter();
@@ -51,7 +54,7 @@ namespace Tavisca.Frameworks.Serialization.Binary
 
         public T DeepClone<T>(T obj)
         {
-            using (var stream = new MemoryStream())
+            using (var stream = StreamManager.GetStream())
             {
                 var formatter = new BinaryFormatter();
                 formatter.Serialize(stream, obj);
